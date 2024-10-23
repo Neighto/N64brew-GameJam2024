@@ -151,7 +151,7 @@ void minigame_init(void)
 
   t3d_init((T3DInitParams){});
 
-  font = rdpq_font_load("rom:/snake3d/m6x11plus.font64");
+  font = rdpq_font_load("rom:/chicken3d/m6x11plus.font64");
   rdpq_text_register_font(FONT_TEXT, font);
   rdpq_font_style(font, 0, &(rdpq_fontstyle_t){.color = color_from_packed32(TEXT_COLOR) });
 
@@ -173,11 +173,11 @@ void minigame_init(void)
   lightDirVec = (T3DVec3){{1.0f, 1.0f, 1.0f}};
   t3d_vec3_norm(&lightDirVec);
 
-  modelMap = t3d_model_load("rom:/snake3d/map.t3dm");
-  modelShadow = t3d_model_load("rom:/snake3d/shadow.t3dm");
+  modelMap = t3d_model_load("rom:/chicken3d/map.t3dm");
+  modelShadow = t3d_model_load("rom:/chicken3d/shadow.t3dm");
 
   // Model Credits: Quaternius (CC0) https://quaternius.com/packs/easyenemy.html
-  model = t3d_model_load("rom:/snake3d/snake.t3dm");
+  model = t3d_model_load("rom:/chicken3d/snake.t3dm");
 
   rspq_block_begin();
     t3d_matrix_push(mapMatFP);
@@ -213,7 +213,7 @@ void minigame_init(void)
   wav64_open(&sfx_countdown, "rom:/core/Countdown.wav64");
   wav64_open(&sfx_stop, "rom:/core/Stop.wav64");
   wav64_open(&sfx_winner, "rom:/core/Winner.wav64");
-  xm64player_open(&music, "rom:/snake3d/bottled_bubbles.xm64");
+  xm64player_open(&music, "rom:/chicken3d/bottled_bubbles.xm64");
   xm64player_play(&music, 0);
 }
 
