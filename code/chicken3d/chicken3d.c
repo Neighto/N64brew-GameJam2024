@@ -221,13 +221,21 @@ bool all_players_stopped_or_collided()
 
 void check_collision()
 {
-  float distance_to_center = t3d_vec3_distance(&players[0].playerPos, &center);
-  if (distance_to_center < HITBOX_RADIUS) {
-    for (size_t i = 0; i < MAXPLAYERS; i++) {
-      // todo: if =1 player, keep them alive
-      if (player_has_control(&players[i])) {
+  player_data *potentialWinner = NULL;
+  for (size_t i = 0; i < MAXPLAYERS; i++) {
+    float distance_to_center = t3d_vec3_distance(&players[i].playerPos, &center);
+
+    // Check if player is within the hitbox radius and has not stopped
+    if (distance_to_center < HITBOX_RADIUS && player_has_control(&players[i])) {
+      players[i].isStopped = true;
+
+      if (potentialWinner != NULL) {
+        // >1 player has reached center, toggle alive status
         players[i].isAlive = false;
-        players[i].isStopped = true;
+        potentialWinner->isAlive = false;
+      } else {
+        // First player reaching center, set as potential winner
+        potentialWinner = &players[i];
       }
     }
   }
@@ -239,7 +247,7 @@ void check_winner()
   PlyNum closest_player = -1;
 
   for (size_t i = 0; i < MAXPLAYERS; i++) {
-      if (players[i].isStopped) {  // Only players who stopped are eligible
+      if (players[i].isAlive) {
           float distance_to_center = t3d_vec3_distance(&players[i].playerPos, &center);
 
           // Check if this player is closest
@@ -247,9 +255,6 @@ void check_winner()
               closest_distance = distance_to_center;
               closest_player = i;
           }
-      } else {
-          // If player didn't stop, set them to lose
-          players[i].isAlive = false;
       }
   }
 
