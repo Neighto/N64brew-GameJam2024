@@ -95,15 +95,15 @@ void player_init(player_data *player, color_t color, T3DVec3 position, float rot
   // Now create animation instances (by name), the data in 'model' is fixed,
   // whereas 'anim' contains all the runtime data.
   // Note that tiny3d internally keeps no track of animations, it's up to the user to manage and play them.
-  player->animIdle = t3d_anim_create(model, "Snake_Idle");
+  player->animIdle = t3d_anim_create(model, "Egg_Idle");
   t3d_anim_attach(&player->animIdle, &player->skel); // tells the animation which skeleton to modify
 
-  player->animWalk = t3d_anim_create(model, "Snake_Jump");
+  player->animWalk = t3d_anim_create(model, "Egg_Walk");
   t3d_anim_attach(&player->animWalk, &player->skelBlend);
 
   // multiple animations can attach to the same skeleton, this will NOT perform any blending
   // rather the last animation that updates "wins", this can be useful if multiple animations touch different bones
-  player->animStop = t3d_anim_create(model, "Snake_Attack");
+  player->animStop = t3d_anim_create(model, "Egg_Attack");
   t3d_anim_set_looping(&player->animStop, false); // don't loop this animation
   t3d_anim_set_playing(&player->animStop, false); // start in a paused state
   t3d_anim_attach(&player->animStop, &player->skel);
@@ -168,7 +168,7 @@ void minigame_init(void)
   modelShadow = t3d_model_load("rom:/chicken3d/shadow.t3dm");
 
   // Model Credits: Quaternius (CC0) https://quaternius.com/packs/easyenemy.html
-  model = t3d_model_load("rom:/chicken3d/cube.t3dm");
+  model = t3d_model_load("rom:/chicken3d/eggie.t3dm");
 
   rspq_block_begin();
     t3d_matrix_push(mapMatFP);
