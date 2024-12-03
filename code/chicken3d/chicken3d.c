@@ -98,7 +98,7 @@ void player_init(player_data *player, color_t color, T3DVec3 position, float rot
   player->animIdle = t3d_anim_create(model, "Snake_Idle");
   t3d_anim_attach(&player->animIdle, &player->skel); // tells the animation which skeleton to modify
 
-  player->animWalk = t3d_anim_create(model, "Snake_Walk");
+  player->animWalk = t3d_anim_create(model, "Snake_Jump");
   t3d_anim_attach(&player->animWalk, &player->skelBlend);
 
   // multiple animations can attach to the same skeleton, this will NOT perform any blending
@@ -168,7 +168,7 @@ void minigame_init(void)
   modelShadow = t3d_model_load("rom:/chicken3d/shadow.t3dm");
 
   // Model Credits: Quaternius (CC0) https://quaternius.com/packs/easyenemy.html
-  model = t3d_model_load("rom:/chicken3d/snake.t3dm");
+  model = t3d_model_load("rom:/chicken3d/cube.t3dm");
 
   rspq_block_begin();
     t3d_matrix_push(mapMatFP);
